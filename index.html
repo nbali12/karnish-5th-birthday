@@ -1,0 +1,2417 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#061b42">
+
+<title>Heroes Assemble! | Golden Birthday</title>
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500;700;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    font-family: Orbitron, Arial, sans-serif;
+
+    color: white;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #174f9c 0%,
+            #0d3672 35%,
+            #082654 65%,
+            #04142f 100%
+        );
+}
+
+
+/* =========================================================
+   BLUE BACKGROUND ONLY
+========================================================= */
+
+.blue-background {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: -20;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(45,130,240,.35),
+            transparent 48%
+        ),
+        linear-gradient(
+            135deg,
+            #061a3c,
+            #0d3c7b,
+            #061a3c
+        );
+}
+
+
+/* Subtle blue rays */
+
+.blue-background::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(255,255,255,.025) 0deg,
+            rgba(255,255,255,.025) 2deg,
+            transparent 2deg,
+            transparent 18deg
+        );
+
+    opacity: .6;
+
+    animation:
+        slowRotate
+        40s linear infinite;
+}
+
+@keyframes slowRotate {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+#intro {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #1e579e,
+            #0b2e61 45%,
+            #020b1e 100%
+        );
+
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+}
+
+#intro.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+/* Intro circle */
+
+.intro-circle {
+
+    position: absolute;
+
+    width: min(80vw,620px);
+
+    height: min(80vw,620px);
+
+    border-radius: 50%;
+
+    border:
+        2px solid
+        rgba(100,200,255,.55);
+
+    box-shadow:
+
+        0 0 35px
+        rgba(40,150,255,.4),
+
+        inset 0 0 35px
+        rgba(40,150,255,.18);
+
+    animation:
+        rotateCircle
+        16s linear infinite;
+}
+
+.intro-circle::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 25px;
+
+    border-radius: 50%;
+
+    border:
+        1px dashed
+        rgba(255,255,255,.25);
+}
+
+.intro-circle::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 60px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid
+        rgba(255,205,30,.25);
+
+    animation:
+        reverseRotate
+        10s linear infinite;
+}
+
+@keyframes rotateCircle {
+
+    to {
+        transform:
+            rotate(360deg);
+    }
+}
+
+@keyframes reverseRotate {
+
+    to {
+        transform:
+            rotate(-360deg);
+    }
+}
+
+
+/* Intro rays */
+
+.intro-rays {
+
+    position: absolute;
+
+    width: min(105vw,850px);
+
+    height: min(105vw,850px);
+
+    border-radius: 50%;
+
+    background:
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(255,255,255,.06) 0deg,
+            rgba(255,255,255,.06) 2deg,
+            transparent 2deg,
+            transparent 14deg
+        );
+
+    animation:
+        rotateCircle
+        28s linear infinite;
+}
+
+
+/* Intro glow */
+
+.intro-glow {
+
+    position: absolute;
+
+    width: 340px;
+
+    height: 340px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(70,170,255,.65),
+            rgba(30,90,190,.2) 45%,
+            transparent 72%
+        );
+
+    animation:
+        pulse
+        3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+
+    0%,100% {
+        transform:
+            scale(.92);
+
+        opacity: .7;
+    }
+
+    50% {
+        transform:
+            scale(1.08);
+
+        opacity: 1;
+    }
+}
+
+
+/* Intro text */
+
+.intro-content {
+
+    position: relative;
+
+    z-index: 5;
+
+    text-align: center;
+}
+
+.intro-small {
+
+    font-size: 11px;
+
+    letter-spacing: 6px;
+
+    color: #9bd5ff;
+
+    margin-bottom: 18px;
+}
+
+.intro-title {
+
+    font-family: Bangers, cursive;
+
+    font-size:
+        clamp(
+            75px,
+            15vw,
+            170px
+        );
+
+    line-height: .78;
+
+    letter-spacing: 4px;
+
+    text-shadow:
+
+        5px 5px 0 #07152d,
+
+        0 0 30px
+        rgba(50,160,255,.9),
+
+        0 0 70px
+        rgba(50,160,255,.5);
+
+    animation:
+        titleEntrance
+        1.4s ease-out;
+}
+
+.intro-gold {
+
+    margin-top: 22px;
+
+    font-family: Bangers, cursive;
+
+    font-size:
+        clamp(
+            25px,
+            5vw,
+            48px
+        );
+
+    letter-spacing: 4px;
+
+    color: #ffd21c;
+
+    text-shadow:
+        3px 3px 0 #171005,
+        0 0 20px
+        rgba(255,210,28,.5);
+}
+
+@keyframes titleEntrance {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            scale(.45)
+            rotate(-5deg);
+    }
+
+    65% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.06);
+    }
+
+    100% {
+
+        transform:
+            scale(1);
+    }
+}
+
+
+/* Intro exit */
+
+#intro.explode {
+
+    animation:
+        introDisappear
+        1.3s ease
+        forwards;
+}
+
+@keyframes introDisappear {
+
+    0% {
+
+        opacity: 1;
+
+        transform:
+            scale(1);
+    }
+
+    60% {
+
+        opacity: 1;
+
+        transform:
+            scale(1.06);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            scale(1.18);
+    }
+}
+
+
+/* =========================================================
+   INVITATION AREA
+========================================================= */
+
+#invitation {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        70px 30px;
+
+    opacity: 0;
+
+    transform:
+        scale(.96);
+
+    transition:
+        opacity 1.2s ease,
+        transform 1.2s ease;
+}
+
+#invitation.show {
+
+    opacity: 1;
+
+    transform:
+        scale(1);
+}
+
+
+/* =========================================================
+   CARD WRAPPER
+========================================================= */
+
+.card-wrapper {
+
+    position: relative;
+
+    width:
+        min(1050px, 100%);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+}
+
+
+/* =========================================================
+   CHARACTERS AROUND CARD
+========================================================= */
+
+.character {
+
+    position: absolute;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    object-fit: contain;
+
+    filter:
+        drop-shadow(
+            0 15px 25px
+            rgba(0,0,0,.45)
+        );
+
+    animation:
+        characterFloat
+        5s ease-in-out infinite;
+}
+
+
+/* LEFT TOP */
+
+.character.captain {
+
+    width: 360px;
+
+    left: -230px;
+
+    top: -80px;
+
+    transform:
+        rotate(-7deg);
+
+    animation-delay:
+        -.7s;
+}
+
+
+/* LEFT BOTTOM */
+
+.character.hulk {
+
+    width: 410px;
+
+    left: -260px;
+
+    bottom: -110px;
+
+    transform:
+        rotate(4deg);
+
+    animation-delay:
+        -1.5s;
+}
+
+
+/* RIGHT TOP */
+
+.character.ironman {
+
+    width: 390px;
+
+    right: -240px;
+
+    top: -100px;
+
+    transform:
+        rotate(6deg);
+
+    animation-delay:
+        -2s;
+}
+
+
+/* RIGHT BOTTOM */
+
+.character.thor {
+
+    width: 390px;
+
+    right: -235px;
+
+    bottom: -115px;
+
+    transform:
+        rotate(-5deg);
+
+    animation-delay:
+        -2.7s;
+}
+
+
+/* TOP CENTER */
+
+.character.spiderman {
+
+    width: 270px;
+
+    right: 5%;
+
+    top: -155px;
+
+    transform:
+        rotate(8deg);
+
+    z-index: 0;
+
+    opacity: .9;
+
+    animation-delay:
+        -3.2s;
+}
+
+
+/* BOTTOM CENTER */
+
+.character.blackpanther {
+
+    width: 300px;
+
+    left: 6%;
+
+    bottom: -150px;
+
+    transform:
+        rotate(-5deg);
+
+    z-index: 0;
+
+    opacity: .9;
+
+    animation-delay:
+        -4s;
+}
+
+
+/* Character floating */
+
+@keyframes characterFloat {
+
+    0%,100% {
+
+        margin-top: 0;
+    }
+
+    50% {
+
+        margin-top: -12px;
+    }
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.card {
+
+    position: relative;
+
+    z-index: 5;
+
+    width:
+        min(930px,100%);
+
+    min-height: 760px;
+
+    padding:
+        55px 35px 65px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(15,38,80,.97),
+            rgba(3,10,25,.98)
+        );
+
+    border:
+        2px solid
+        rgba(120,200,255,.5);
+
+    box-shadow:
+
+        0 0 45px
+        rgba(0,130,255,.4),
+
+        0 0 100px
+        rgba(0,80,200,.3),
+
+        inset 0 0 80px
+        rgba(0,0,0,.35);
+
+    clip-path:
+        polygon(
+            3% 0,
+            97% 0,
+            100% 4%,
+            100% 96%,
+            97% 100%,
+            3% 100%,
+            0 96%,
+            0 4%
+        );
+}
+
+
+/* Card blue glow */
+
+.card::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(30,110,220,.18),
+            transparent 65%
+        );
+}
+
+
+/* =========================================================
+   GOLDEN BADGE
+========================================================= */
+
+.golden-badge {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 105px;
+
+    height: 105px;
+
+    margin-bottom: 18px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #fff4a3 0%,
+            #ffd21c 45%,
+            #c87900 100%
+        );
+
+    border:
+        5px solid
+        #fff0a0;
+
+    box-shadow:
+
+        0 0 15px
+        rgba(255,210,28,.8),
+
+        0 0 40px
+        rgba(255,180,0,.45);
+
+    animation:
+        badgeFloat
+        3s ease-in-out infinite;
+}
+
+.golden-badge::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: -12px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,210,28,.5);
+
+    animation:
+        badgeSpin
+        8s linear infinite;
+}
+
+.golden-badge span {
+
+    font-family: Bangers, cursive;
+
+    font-size: 48px;
+
+    color: #4b2a00;
+}
+
+@keyframes badgeFloat {
+
+    0%,100% {
+
+        transform:
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            translateY(-7px);
+    }
+}
+
+@keyframes badgeSpin {
+
+    to {
+
+        transform:
+            rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   HEADINGS
+========================================================= */
+
+.top-label {
+
+    font-size: 12px;
+
+    letter-spacing: 5px;
+
+    color: #8fc7ff;
+
+    margin-bottom: 12px;
+}
+
+.you-are {
+
+    font-family: Bangers, cursive;
+
+    font-size:
+        clamp(
+            28px,
+            5vw,
+            45px
+        );
+
+    letter-spacing: 4px;
+}
+
+.invited {
+
+    font-family: Bangers, cursive;
+
+    font-size:
+        clamp(
+            75px,
+            14vw,
+            145px
+        );
+
+    line-height: .82;
+
+    letter-spacing: 5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #75c8ff 45%,
+            #1976ff
+        );
+
+    -webkit-background-clip: text;
+
+    background-clip: text;
+
+    color: transparent;
+
+    filter:
+        drop-shadow(
+            5px 6px 0 #07132f
+        )
+        drop-shadow(
+            0 0 25px
+            rgba(30,130,255,.6)
+        );
+
+    animation:
+        invitationFloat
+        4s ease-in-out infinite;
+}
+
+@keyframes invitationFloat {
+
+    0%,100% {
+
+        transform:
+            translateY(0);
+    }
+
+    50% {
+
+        transform:
+            translateY(-6px);
+    }
+}
+
+.name {
+
+    margin-top: 18px;
+
+    font-family: Bangers, cursive;
+
+    font-size:
+        clamp(
+            48px,
+            9vw,
+            85px
+        );
+
+    letter-spacing: 4px;
+
+    color: #ffd21c;
+
+    text-shadow:
+
+        4px 4px 0 #16100a,
+
+        0 0 20px
+        rgba(255,210,28,.45);
+}
+
+.subtitle {
+
+    margin-top: 8px;
+
+    font-size: 13px;
+
+    letter-spacing: 3px;
+
+    color: #c7d5ec;
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+.countdown-title {
+
+    margin-top: 32px;
+
+    font-family: Bangers, cursive;
+
+    font-size: 28px;
+
+    letter-spacing: 3px;
+
+    color: #ffd21c;
+}
+
+.countdown {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 12px;
+}
+
+.time-box {
+
+    width: 92px;
+
+    padding:
+        13px 8px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(38,73,125,.7),
+            rgba(7,13,28,.95)
+        );
+
+    border:
+        1px solid
+        rgba(111,184,255,.45);
+}
+
+.time-number {
+
+    font-size: 27px;
+
+    font-weight: 900;
+
+    color: white;
+
+    text-shadow:
+        0 0 12px
+        rgba(70,170,255,.5);
+}
+
+.time-label {
+
+    margin-top: 5px;
+
+    font-size: 7px;
+
+    letter-spacing: 2px;
+
+    color: #78bfff;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.details {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    margin-top: 28px;
+}
+
+.detail {
+
+    min-width: 190px;
+
+    padding:
+        17px 16px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+}
+
+.detail-icon {
+
+    font-size: 23px;
+
+    margin-bottom: 7px;
+}
+
+.detail-value {
+
+    font-size: 14px;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+}
+
+.detail-label {
+
+    margin-top: 6px;
+
+    font-size: 8px;
+
+    letter-spacing: 2px;
+
+    color: #79b8ff;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    max-width: 650px;
+
+    margin-top: 25px;
+
+    font-size: 13px;
+
+    line-height: 1.75;
+
+    color: #d8e1f1;
+}
+
+.message strong {
+
+    color: #ffd21c;
+}
+
+
+/* =========================================================
+   RSVP
+========================================================= */
+
+.rsvp {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-top: 25px;
+
+    padding:
+        16px 32px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    color: #071020;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd21c,
+            #ff9f00
+        );
+
+    box-shadow:
+        0 8px 30px
+        rgba(255,165,0,.3);
+
+    transition:
+        transform .25s ease;
+}
+
+.rsvp:hover {
+
+    transform:
+        scale(1.05);
+}
+
+
+/* =========================================================
+   COMIC WORDS
+========================================================= */
+
+.comic-word {
+
+    position: absolute;
+
+    z-index: 20;
+
+    font-family: Bangers, cursive;
+
+    font-size: 25px;
+
+    letter-spacing: 2px;
+
+    color: white;
+
+    padding:
+        7px 14px;
+
+    background: #e9232d;
+
+    border:
+        4px solid #111;
+
+    box-shadow:
+        5px 5px 0 #111;
+
+    animation:
+        comicFloat
+        4s ease-in-out infinite;
+}
+
+.pow {
+
+    left: 18px;
+
+    top: 80px;
+
+    transform:
+        rotate(-12deg);
+}
+
+.boom {
+
+    right: 18px;
+
+    top: 140px;
+
+    transform:
+        rotate(12deg);
+
+    animation-delay: 1s;
+}
+
+.zap {
+
+    left: 20px;
+
+    bottom: 90px;
+
+    transform:
+        rotate(10deg);
+
+    animation-delay: 2s;
+}
+
+@keyframes comicFloat {
+
+    0%,100% {
+
+        translate:
+            0 0;
+    }
+
+    50% {
+
+        translate:
+            0 -9px;
+    }
+}
+
+
+/* =========================================================
+   DECORATIVE CARTOON HEROES
+========================================================= */
+
+.hero {
+
+    position: absolute;
+
+    bottom: -8px;
+
+    width: 115px;
+
+    height: 245px;
+
+    z-index: 30;
+
+    animation:
+        heroFloat
+        4s ease-in-out infinite;
+}
+
+.hero.left {
+
+    left: -55px;
+}
+
+.hero.right {
+
+    right: -55px;
+
+    transform:
+        scaleX(-1);
+
+    animation-name:
+        heroFloatRight;
+}
+
+@keyframes heroFloat {
+
+    0%,100% {
+
+        transform:
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    50% {
+
+        transform:
+            translateY(-12px)
+            rotate(2deg);
+    }
+}
+
+@keyframes heroFloatRight {
+
+    0%,100% {
+
+        transform:
+            scaleX(-1)
+            translateY(0)
+            rotate(-2deg);
+    }
+
+    50% {
+
+        transform:
+            scaleX(-1)
+            translateY(-12px)
+            rotate(2deg);
+    }
+}
+
+.head {
+
+    position: absolute;
+
+    width: 64px;
+
+    height: 64px;
+
+    border-radius: 50%;
+
+    background: #e7a67c;
+
+    left: 27px;
+
+    top: 7px;
+
+    border:
+        4px solid #101827;
+}
+
+.mask {
+
+    position: absolute;
+
+    width: 74px;
+
+    height: 27px;
+
+    top: 22px;
+
+    left: 22px;
+
+    background: #142c67;
+
+    clip-path:
+        polygon(
+            0 20%,
+            100% 20%,
+            85% 100%,
+            55% 75%,
+            45% 75%,
+            15% 100%
+        );
+
+    z-index: 3;
+}
+
+.body {
+
+    position: absolute;
+
+    top: 66px;
+
+    left: 21px;
+
+    width: 78px;
+
+    height: 110px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #142c67,
+            #287dff,
+            #142c67
+        );
+
+    border:
+        4px solid #101827;
+
+    clip-path:
+        polygon(
+            25% 0,
+            75% 0,
+            100% 20%,
+            88% 100%,
+            12% 100%,
+            0 20%
+        );
+}
+
+.symbol {
+
+    position: absolute;
+
+    top: 20px;
+
+    left: 24px;
+
+    width: 30px;
+
+    height: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #ffd21c;
+
+    font-size: 22px;
+
+    background: #101827;
+
+    border-radius: 50%;
+}
+
+.arm {
+
+    position: absolute;
+
+    width: 25px;
+
+    height: 95px;
+
+    background: #287dff;
+
+    border:
+        4px solid #101827;
+
+    border-radius: 20px;
+}
+
+.arm.one {
+
+    left: 4px;
+
+    top: 72px;
+
+    transform:
+        rotate(28deg);
+}
+
+.arm.two {
+
+    right: 1px;
+
+    top: 66px;
+
+    transform:
+        rotate(-45deg);
+}
+
+.fist {
+
+    position: absolute;
+
+    width: 30px;
+
+    height: 30px;
+
+    background: #e7a67c;
+
+    border:
+        4px solid #101827;
+
+    border-radius: 50%;
+
+    bottom: -18px;
+
+    left: -7px;
+}
+
+.leg {
+
+    position: absolute;
+
+    width: 30px;
+
+    height: 90px;
+
+    background: #142c67;
+
+    border:
+        4px solid #101827;
+
+    top: 164px;
+}
+
+.leg.one {
+
+    left: 26px;
+
+    transform:
+        rotate(8deg);
+}
+
+.leg.two {
+
+    right: 26px;
+
+    transform:
+        rotate(-8deg);
+}
+
+.boot {
+
+    position: absolute;
+
+    width: 43px;
+
+    height: 25px;
+
+    background: #111827;
+
+    bottom: -16px;
+
+    left: -9px;
+
+    border-radius:
+        5px 15px 5px 5px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    #invitation {
+
+        padding:
+            60px 15px;
+    }
+
+
+    .character.captain {
+
+        width: 270px;
+
+        left: -155px;
+
+        top: -50px;
+    }
+
+
+    .character.hulk {
+
+        width: 300px;
+
+        left: -175px;
+
+        bottom: -80px;
+    }
+
+
+    .character.ironman {
+
+        width: 290px;
+
+        right: -155px;
+
+        top: -60px;
+    }
+
+
+    .character.thor {
+
+        width: 300px;
+
+        right: -165px;
+
+        bottom: -85px;
+    }
+
+
+    .character.spiderman {
+
+        width: 190px;
+
+        right: 0;
+
+        top: -100px;
+    }
+
+
+    .character.blackpanther {
+
+        width: 210px;
+
+        left: 0;
+
+        bottom: -105px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    #invitation {
+
+        padding:
+            20px 8px;
+    }
+
+
+    .card-wrapper {
+
+        width: 100%;
+    }
+
+
+    .card {
+
+        min-height: 100vh;
+
+        padding:
+            40px 15px 45px;
+    }
+
+
+    /* Move characters closer to card */
+
+    .character.captain {
+
+        width: 210px;
+
+        left: -105px;
+
+        top: -35px;
+    }
+
+
+    .character.hulk {
+
+        width: 235px;
+
+        left: -125px;
+
+        bottom: -45px;
+    }
+
+
+    .character.ironman {
+
+        width: 220px;
+
+        right: -105px;
+
+        top: -45px;
+    }
+
+
+    .character.thor {
+
+        width: 235px;
+
+        right: -120px;
+
+        bottom: -50px;
+    }
+
+
+    .character.spiderman {
+
+        width: 150px;
+
+        right: 0;
+
+        top: -80px;
+    }
+
+
+    .character.blackpanther {
+
+        width: 165px;
+
+        left: 0;
+
+        bottom: -75px;
+    }
+
+
+    .golden-badge {
+
+        width: 82px;
+
+        height: 82px;
+    }
+
+
+    .golden-badge span {
+
+        font-size: 38px;
+    }
+
+
+    .countdown {
+
+        gap: 5px;
+    }
+
+
+    .time-box {
+
+        width: 72px;
+
+        padding:
+            11px 5px;
+    }
+
+
+    .time-number {
+
+        font-size: 22px;
+    }
+
+
+    .time-label {
+
+        font-size: 6px;
+
+        letter-spacing: 1px;
+    }
+
+
+    .details {
+
+        gap: 8px;
+    }
+
+
+    .detail {
+
+        width: 100%;
+
+        min-width: 0;
+
+        padding: 13px;
+    }
+
+
+    .message {
+
+        font-size: 11px;
+    }
+
+
+    .comic-word {
+
+        transform:
+            scale(.65);
+    }
+
+
+    .pow {
+
+        left: -3px;
+    }
+
+
+    .boom {
+
+        right: -3px;
+    }
+
+
+    .zap {
+
+        left: -3px;
+    }
+
+
+    .hero {
+
+        opacity: .55;
+    }
+
+
+    .hero.left {
+
+        left: -78px;
+    }
+
+
+    .hero.right {
+
+        right: -78px;
+    }
+}
+
+
+@media (max-width: 420px) {
+
+    .time-box {
+
+        width: 65px;
+    }
+
+
+    .time-number {
+
+        font-size: 19px;
+    }
+
+
+    .name {
+
+        font-size: 42px;
+    }
+
+
+    .invited {
+
+        font-size: 70px;
+    }
+
+
+    .subtitle {
+
+        font-size: 10px;
+
+        letter-spacing: 2px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     BLUE PAGE BACKGROUND
+====================================================== -->
+
+<div class="blue-background"></div>
+
+
+<!-- =====================================================
+     HEROES ASSEMBLE INTRO
+====================================================== -->
+
+<section id="intro">
+
+    <div class="intro-rays"></div>
+
+    <div class="intro-circle"></div>
+
+    <div class="intro-glow"></div>
+
+    <div class="intro-content">
+
+        <div class="intro-small">
+            ✦ YOU'VE BEEN SUMMONED ✦
+        </div>
+
+        <div class="intro-title">
+            HEROES<br>
+            ASSEMBLE!
+        </div>
+
+        <div class="intro-gold">
+            A GOLDEN BIRTHDAY AWAITS
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INVITATION
+====================================================== -->
+
+<main id="invitation">
+
+
+    <div class="card-wrapper">
+
+
+        <!-- =================================================
+             CHARACTERS AROUND THE INVITATION
+        ================================================== -->
+
+
+        <img
+            src="images/captain-america.png"
+            class="character captain"
+            alt=""
+        >
+
+
+        <img
+            src="images/hulk.png"
+            class="character hulk"
+            alt=""
+        >
+
+
+        <img
+            src="images/ironman.png"
+            class="character ironman"
+            alt=""
+        >
+
+
+        <img
+            src="images/thor.png"
+            class="character thor"
+            alt=""
+        >
+
+
+        <img
+            src="images/spiderman.png"
+            class="character spiderman"
+            alt=""
+        >
+
+
+        <img
+            src="images/black-panther.png"
+            class="character blackpanther"
+            alt=""
+        >
+
+
+        <!-- =================================================
+             CARD
+        ================================================== -->
+
+        <div class="card">
+
+
+            <!-- COMIC WORDS -->
+
+            <div class="comic-word pow">
+                POW!
+            </div>
+
+            <div class="comic-word boom">
+                BOOM!
+            </div>
+
+            <div class="comic-word zap">
+                ZAP!
+            </div>
+
+
+            <!-- DECORATIVE LEFT HERO -->
+
+            <div class="hero left">
+
+                <div class="head"></div>
+
+                <div class="mask"></div>
+
+                <div class="body">
+
+                    <div class="symbol">
+                        ★
+                    </div>
+
+                </div>
+
+                <div class="arm one">
+                    <div class="fist"></div>
+                </div>
+
+                <div class="arm two">
+                    <div class="fist"></div>
+                </div>
+
+                <div class="leg one">
+                    <div class="boot"></div>
+                </div>
+
+                <div class="leg two">
+                    <div class="boot"></div>
+                </div>
+
+            </div>
+
+
+            <!-- DECORATIVE RIGHT HERO -->
+
+            <div class="hero right">
+
+                <div class="head"></div>
+
+                <div class="mask"></div>
+
+                <div class="body">
+
+                    <div class="symbol">
+                        ⚡
+                    </div>
+
+                </div>
+
+                <div class="arm one">
+                    <div class="fist"></div>
+                </div>
+
+                <div class="arm two">
+                    <div class="fist"></div>
+                </div>
+
+                <div class="leg one">
+                    <div class="boot"></div>
+                </div>
+
+                <div class="leg two">
+                    <div class="boot"></div>
+                </div>
+
+            </div>
+
+
+            <!-- GOLDEN BADGE -->
+
+            <div class="golden-badge">
+
+                <span>
+                    FIVE
+                </span>
+
+            </div>
+
+
+            <div class="top-label">
+                ✦ A VERY SPECIAL BIRTHDAY ✦
+            </div>
+
+
+            <div class="you-are">
+                YOU ARE
+            </div>
+
+
+            <div class="invited">
+                INVITED!
+            </div>
+
+
+            <div class="name">
+                KARNISH'S
+                <br>
+                GOLDEN BIRTHDAY
+            </div>
+
+
+            <div class="subtitle">
+                COME CELEBRATE THIS SPECIAL DAY WITH US!
+            </div>
+
+
+            <!-- COUNTDOWN -->
+
+            <div class="countdown-title">
+                ✦ COUNTDOWN TO THE BIG DAY ✦
+            </div>
+
+
+            <div class="countdown">
+
+
+                <div class="time-box">
+
+                    <div
+                        id="days"
+                        class="time-number"
+                    >
+                        000
+                    </div>
+
+                    <div class="time-label">
+                        DAYS
+                    </div>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <div
+                        id="hours"
+                        class="time-number"
+                    >
+                        00
+                    </div>
+
+                    <div class="time-label">
+                        HOURS
+                    </div>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <div
+                        id="minutes"
+                        class="time-number"
+                    >
+                        00
+                    </div>
+
+                    <div class="time-label">
+                        MINUTES
+                    </div>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <div
+                        id="seconds"
+                        class="time-number"
+                    >
+                        00
+                    </div>
+
+                    <div class="time-label">
+                        SECONDS
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- DETAILS -->
+
+            <div class="details">
+
+
+                <div class="detail">
+
+                    <div class="detail-icon">
+                        🎂
+                    </div>
+
+                    <div class="detail-value">
+                        OCTOBER 10, 2026
+                    </div>
+
+                    <div class="detail-label">
+                        SATURDAY
+                    </div>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <div class="detail-icon">
+                        📍
+                    </div>
+
+                    <div class="detail-value">
+                        413 ZELLER DRIVE
+                    </div>
+
+                    <div class="detail-label">
+                        KITCHENER
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- MESSAGE -->
+
+            <div class="message">
+
+                Get ready to celebrate a very special
+                <strong>Golden Birthday!</strong>
+
+                <br>
+
+                Join us for an unforgettable day filled
+                with fun, laughter and birthday magic.
+
+                <br><br>
+
+                <strong>
+                    WE CAN'T WAIT TO CELEBRATE WITH YOU!
+                </strong>
+
+            </div>
+
+
+            <!-- RSVP -->
+
+            <a
+                class="rsvp"
+                href="https://wa.me/14164183362?text=Hi!%20We%20would%20love%20to%20celebrate%20with%20you!"
+                target="_blank"
+                rel="noopener"
+            >
+                📱 RSVP ON WHATSAPP
+            </a>
+
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script>
+
+
+/* =====================================================
+   INTRO TRANSITION
+====================================================== */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        const intro =
+            document.getElementById("intro");
+
+        const invitation =
+            document.getElementById("invitation");
+
+
+        setTimeout(
+            function() {
+
+                intro.classList.add(
+                    "explode"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        intro.classList.add(
+                            "hide"
+                        );
+
+                        invitation.classList.add(
+                            "show"
+                        );
+
+                    },
+                    950
+                );
+
+            },
+            4500
+        );
+
+    }
+);
+
+
+/* =====================================================
+   COUNTDOWN
+====================================================== */
+
+const birthdayDate =
+    new Date(
+        "October 10, 2026 00:00:00"
+    ).getTime();
+
+
+function updateCountdown() {
+
+    const now =
+        new Date().getTime();
+
+
+    const difference =
+        birthdayDate - now;
+
+
+    if (difference <= 0) {
+
+        document.getElementById(
+            "days"
+        ).textContent = "000";
+
+        document.getElementById(
+            "hours"
+        ).textContent = "00";
+
+        document.getElementById(
+            "minutes"
+        ).textContent = "00";
+
+        document.getElementById(
+            "seconds"
+        ).textContent = "00";
+
+
+        document.querySelector(
+            ".countdown-title"
+        ).textContent =
+            "🎉 TODAY IS THE BIG DAY! 🎉";
+
+
+        return;
+    }
+
+
+    const days =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
+
+
+    const hours =
+        Math.floor(
+            (
+                difference /
+                (1000 * 60 * 60)
+            ) % 24
+        );
+
+
+    const minutes =
+        Math.floor(
+            (
+                difference /
+                (1000 * 60)
+            ) % 60
+        );
+
+
+    const seconds =
+        Math.floor(
+            (
+                difference /
+                1000
+            ) % 60
+        );
+
+
+    document.getElementById(
+        "days"
+    ).textContent =
+        String(days)
+        .padStart(3, "0");
+
+
+    document.getElementById(
+        "hours"
+    ).textContent =
+        String(hours)
+        .padStart(2, "0");
+
+
+    document.getElementById(
+        "minutes"
+    ).textContent =
+        String(minutes)
+        .padStart(2, "0");
+
+
+    document.getElementById(
+        "seconds"
+    ).textContent =
+        String(seconds)
+        .padStart(2, "0");
+
+}
+
+
+updateCountdown();
+
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+</script>
+
+</body>
+</html>
+```
