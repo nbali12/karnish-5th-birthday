@@ -350,7 +350,7 @@ body {
 
 /* TOP CENTER-RIGHT */
 
-.spiderman {
+.spiderman-main {
     right: 35px;
     top: -155px;
 
@@ -817,9 +817,15 @@ body {
     }
 
     .spiderman {
-        right: -5px;
-        top: -105px;
+        right: 5px;
+        top: 245px;
     }
+
+        .spiderman-main {
+        right: -35px;
+        top: 245px;
+    }
+
 
     .blackpanther {
         left: -5px;
@@ -835,70 +841,75 @@ body {
 @media (max-width: 600px) {
 
     #invitation {
-        padding: 65px 10px;
+        padding: 42px 8px 60px;
+        min-height: auto;
     }
 
     .card-wrapper {
-        min-height: 760px;
+        width: min(100%, 420px);
+        min-height: 720px;
+        margin: 0 auto;
     }
 
     .character {
-        width: 210px;
-        height: 350px;
+        width: 96px;
+        height: 160px;
+        opacity: .98;
     }
 
     .captain {
-        left: -95px;
-        top: -35px;
+        left: -10px;
+        top: 110px;
     }
 
     .hulk {
-        left: -105px;
-        bottom: -50px;
+        left: -12px;
+        bottom: 70px;
     }
 
     .ironman {
-        right: -95px;
-        top: -40px;
+        right: -10px;
+        top: 110px;
     }
 
     .thor {
-        right: -105px;
-        bottom: -55px;
+        right: -12px;
+        bottom: 110px;
     }
 
     .spiderman,
     .blackpanther {
-        width: 160px;
-        height: 280px;
+        width: 118px;
+        height: 196px;
     }
 
     .spiderman {
-        right: -5px;
-        top: -75px;
+        right: 10px;
+        top: 235px;
+    }
+
+    .spiderman-main {
+        width: 150px;
+        height: 250px;
     }
 
     .blackpanther {
-        left: -5px;
-        bottom: -80px;
+        left: -10px;
+        bottom: 260px;
     }
 
     .card {
-        width: 100%;
-
-        min-height: 700px;
-
-        padding:
-            45px
-            18px
-            40px;
+        width: 70%;
+        max-width: 300px;
+        min-height: 560px;
+        padding: 26px 12px 22px;
     }
 
     .badge {
-        width: 90px;
-        height: 90px;
-
-        font-size: 55px;
+        width: 84px;
+        height: 84px;
+        font-size: 52px;
+        margin-bottom: 16px;
     }
 
     .special {
@@ -911,27 +922,33 @@ body {
     }
 
     .invited {
-        font-size: 62px;
+        font-size: 56px;
     }
 
     .name {
-        font-size: 30px;
+        font-size: 26px;
+        line-height: 1.05;
     }
 
     .message {
+        max-width: 250px;
         font-size: 11px;
-    }
-
-    .event-date {
-        font-size: 28px;
+        line-height: 1.6;
+        margin-bottom: 22px;
     }
 
     .countdown {
-        gap: 5px;
+        max-width: 260px;
+        gap: 6px;
+        margin-bottom: 20px;
+    }
+
+    .time-box {
+        padding: 10px 4px;
     }
 
     .time-number {
-        font-size: 28px;
+        font-size: 24px;
     }
 
     .time-label {
@@ -939,8 +956,29 @@ body {
         letter-spacing: 1px;
     }
 
+    .event-date {
+        font-size: 24px;
+        margin-top: 12px;
+    }
+
+    .event-day {
+        font-size: 12px;
+        margin-bottom: 14px;
+    }
+
+    .location {
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .rsvp {
+        margin-top: 18px;
+        padding: 12px 22px;
+        font-size: 18px;
+    }
+
     .comic {
-        font-size: 35px;
+        font-size: 30px;
     }
 }
 
@@ -950,48 +988,74 @@ body {
 
 @media (max-width: 400px) {
 
+    .card-wrapper {
+        min-height: 660px;
+    }
+
     .character {
-        width: 175px;
-        height: 300px;
+        width: 80px;
+        height: 136px;
     }
 
     .captain {
-        left: -80px;
-        top: -25px;
+        left: -8px;
+        top: 96px;
     }
 
     .hulk {
-        left: -90px;
-        bottom: -40px;
+        left: -10px;
+        bottom: 96px;
     }
 
     .ironman {
-        right: -80px;
-        top: -30px;
+        right: -8px;
+        top: 96px;
     }
 
     .thor {
-        right: -90px;
-        bottom: -45px;
+        right: -10px;
+        bottom: 96px;
     }
 
     .spiderman,
     .blackpanther {
-        width: 135px;
-        height: 235px;
+        width: 96px;
+        height: 160px;
+    }
+
+    .spiderman-main {
+        width: 180px;
+        height: 240px;
     }
 
     .spiderman {
-        top: -65px;
+        right: 8px;
+        top: 195px;
     }
 
     .blackpanther {
-        bottom: -65px;
+        left: 8px;
+        bottom: 220px;
     }
 
     .card {
-        padding-left: 14px;
-        padding-right: 14px;
+        width: 74%;
+        max-width: 260px;
+        min-height: 500px;
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+    .name {
+        font-size: 22px;
+    }
+
+    .invited {
+        font-size: 48px;
+    }
+
+    .message {
+        font-size: 10px;
     }
 }
 </style>
@@ -1074,7 +1138,7 @@ body {
 
         <img
             src="images/spiderman.png"
-            class="character spiderman"
+            class="character spiderman-main"
             alt=""
         >
 
@@ -1093,7 +1157,6 @@ body {
 
             <div class="comic pow">POW!</div>
             <div class="comic boom">BOOM!</div>
-            <div class="comic zap">ZAP!</div>
 
             <div class="badge">
                 5
