@@ -189,12 +189,10 @@ img {
 }
 
 #intro.explode {
-    animation: introExit .5s ease forwards;
-}
-
-@keyframes introExit {
-    0% { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(1.7); visibility: hidden; }
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity .15s ease, visibility .15s ease;
 }
 
 /* =========================================================
@@ -208,8 +206,8 @@ img {
     align-items: flex-start;
     padding: clamp(24px, 8vw, 100px) clamp(12px, 4vw, 25px);
     opacity: 0;
-    animation: invitationAppear 1s ease forwards;
-    animation-delay: 5.25s;
+    animation: invitationAppear .6s ease forwards;
+    animation-delay: 1.1s;
 }
 
 @keyframes invitationAppear {
@@ -231,6 +229,7 @@ img {
     flex-direction: column;
     align-items: center;
     gap: clamp(6px, 2vw, 14px);
+    perspective: 1000px;
 }
 
 .hero-row {
@@ -255,16 +254,31 @@ img {
     aspect-ratio: 330 / 520;
     object-fit: contain;
     object-position: bottom;
-    pointer-events: none;
+    pointer-events: auto;
     filter:
         drop-shadow(0 10px 14px rgba(0,0,0,.8))
         drop-shadow(0 0 18px rgba(0,140,255,.35));
     animation: characterFloat 5s ease-in-out infinite;
+    transition: transform .15s ease;
 }
 
 .spiderman-main,
 .blackpanther {
     width: clamp(80px, 25vw, 210px);
+}
+
+.character.zapped {
+    animation: characterFloat 5s ease-in-out infinite, zapBounce .4s ease;
+}
+
+.badge.zapped {
+    animation: zapBounce .4s ease;
+}
+
+@keyframes zapBounce {
+    0% { transform: scale(1); }
+    35% { transform: scale(1.18) rotate(-4deg); }
+    100% { transform: scale(1); }
 }
 
 @keyframes characterFloat {
@@ -276,11 +290,14 @@ img {
    MAIN CARD
 ========================================================= */
 
-.card {
+ .card {
     position: relative;
     z-index: 10;
     width: min(560px, 100%);
     padding: clamp(28px, 6vw, 55px) clamp(18px, 5vw, 45px);
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+    align-items: center;
     text-align: center;
     border-radius: 30px;
     background:
@@ -291,7 +308,9 @@ img {
         0 0 20px rgba(0,160,255,.8),
         0 0 70px rgba(0,80,255,.55),
         inset 0 0 45px rgba(0,0,0,.75);
-    overflow: hidden;
+    overflow: visible;
+    transform-style: preserve-3d;
+    transition: transform .2s ease;
 }
 
 .card::before {
@@ -346,37 +365,45 @@ img {
    GOLDEN BADGE
 ========================================================= */
 
-.badge {
+ .badge {
     position: relative;
-    width: clamp(80px, 18vw, 120px);
-    height: clamp(80px, 18vw, 120px);
-    margin: 0 auto 20px;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: clamp(70px, 16vw, 110px);
+    height: clamp(70px, 16vw, 110px);
+    margin: 0 auto;
     border-radius: 50%;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     align-items: center;
     background:
         radial-gradient(circle at 35% 30%, #fff5a5, #ffd21c 45%, #b66b00 100%);
     border: 6px solid #fff0a0;
     box-shadow:
-        0 0 15px #ffd000,
-        0 0 40px rgba(255,190,0,.7),
-        inset 0 0 15px rgba(255,255,255,.7);
+        0 0 12px #ffd000,
+        0 0 30px rgba(255,190,0,.6),
+        inset 0 0 12px rgba(255,255,255,.7);
     font-family: Bangers, cursive;
-    font-size: clamp(46px, 9vw, 70px);
+    font-size: clamp(36px, 7.5vw, 58px);
+    padding: clamp(6px, 1.6vw, 14px);
     color: #14214b;
     text-shadow: 2px 2px 0 rgba(255,255,255,.5);
-}
+    z-index: 12;
+ }
 
-.badge::before {
-    content: "★ ★ ★ ★ ★";
-    position: absolute;
-    top: -18px;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    color: #ffd52e;
-    white-space: nowrap;
-}
+ .badge::before {
+     content: "★ ★ ★ ★ ★";
+     position: absolute;
+     top: -28px;
+     left: 50%;
+     transform: translateX(-50%);
+     font-family: Arial, sans-serif;
+     font-size: clamp(11px, 2.2vw, 16px);
+     letter-spacing: 5px;
+     color: #ffd52e;
+     white-space: nowrap;
+ }
 
 /* =========================================================
    TEXT
@@ -477,6 +504,13 @@ img {
     margin-bottom: 20px;
 }
 
+.event-time {
+    color: #fff7c9;
+    font-size: clamp(14px, 3vw, 18px);
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+}
+
 .location {
     font-size: clamp(12px, 2.6vw, 15px);
     line-height: 1.8;
@@ -517,9 +551,28 @@ img {
     outline-offset: 3px;
 }
 
-/* =========================================================
-   SMALL PHONES
-========================================================= */
+/* Lightning visuals removed */
+
+/* Sparks removed */
+
+.character,
+.badge {
+    cursor: pointer;
+}
+
+.character {
+    pointer-events: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .intro-rays,
+    .intro-circle,
+    .intro-circle::before,
+    .intro-circle::after,
+    .character {
+        animation: none !important;
+    }
+}
 
 @media (max-width: 380px) {
     .hero-row {
@@ -575,26 +628,42 @@ img {
              INVITATION CARD
         ================================================= -->
 
-        <div class="card">
+        <div class="card" id="invitationCard">
 
-            <div class="comic pow">POW!</div>
-            <div class="comic boom">BOOM!</div>
-
-            <div class="badge">5</div>
-
-            <div class="special">✦ A VERY SPECIAL BIRTHDAY ✦</div>
-
-            <div class="you-are">YOU ARE</div>
-
-            <div class="invited">INVITED!</div>
-
-            <div class="name">KARNISH'S GOLDEN BIRTHDAY</div>
-
-            <div class="message">
-                Come join us for an unforgettable superhero
-                celebration filled with fun, laughter,
-                adventure and birthday magic!
+            
+            <div class="card-top">
+                <div class="comic pow">POW!</div>
+                <div class="comic boom">BOOM!</div>
             </div>
+
+            <div class="card-bottom">
+                <div class="special">With great birthdays come great celebrations!</div>
+                <br>
+                <div class="you-are">YOU ARE INVITED!</div>
+
+                <div class="invited"></div>
+
+                
+                <div class="special">FOR KARNISH'S GOLDEN BIRTHDAY</div>
+
+                <div class="name">Our little superhero is turning</div>
+
+                <br>
+                <div>
+                   <div class="badge" id="badgeNumber">5</div>
+                </div>
+
+                <br>
+                <div class="message">
+                    Come join us for an unforgettable superhero
+                    celebration filled with fun, laughter and
+                    adventure.
+                </div>
+            </div>
+            <!-- DATE -->
+            <div class="event-date">OCTOBER 10, 2026</div>
+            <div class="event-day">SATURDAY</div>
+            <div class="event-time">1:00 PM</div>
 
             <!-- COUNTDOWN -->
             <div class="countdown">
@@ -615,10 +684,6 @@ img {
                     <div class="time-label">SECONDS</div>
                 </div>
             </div>
-
-            <!-- DATE -->
-            <div class="event-date">OCTOBER 10, 2026</div>
-            <div class="event-day">SATURDAY</div>
 
             <!-- LOCATION -->
             <div class="location">
@@ -657,10 +722,13 @@ img {
    INTRO TRANSITION
 ========================================================= */
 
-window.addEventListener("load", function () {
+document.addEventListener("DOMContentLoaded", function () {
     setTimeout(function () {
-        document.getElementById("intro").classList.add("explode");
-    }, 4500);
+        const intro = document.getElementById("intro");
+        if (intro) {
+            intro.classList.add("explode");
+        }
+    }, 1950);
 });
 
 
@@ -668,7 +736,7 @@ window.addEventListener("load", function () {
    COUNTDOWN
 ========================================================= */
 
-const birthdayDate = new Date("October 10, 2026 00:00:00").getTime();
+const birthdayDate = new Date("October 10, 2026 13:00:00").getTime();
 
 function updateCountdown() {
     const now = new Date().getTime();
@@ -695,6 +763,67 @@ function updateCountdown() {
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
+
+
+/* Sparks removed */
+
+const reduceMotion =
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+/* =========================================================
+   TAP-TO-ZAP: heroes react to a tap/click
+========================================================= */
+
+document.querySelectorAll(".character").forEach(function (img) {
+    img.addEventListener("click", function () {
+        img.classList.remove("zapped");
+        void img.offsetWidth; // restart animation
+        img.classList.add("zapped");
+
+        // no spark effects
+    });
+});
+
+
+/* =========================================================
+   BADGE TAP: a little celebration burst
+========================================================= */
+
+const badgeEl = document.getElementById("badgeNumber");
+
+if (badgeEl) {
+    badgeEl.addEventListener("click", function () {
+        badgeEl.classList.remove("zapped");
+        void badgeEl.offsetWidth;
+        badgeEl.classList.add("zapped");
+
+        // no spark effects
+    });
+}
+
+
+/* =========================================================
+   SUBTLE CARD TILT (pointer devices only)
+========================================================= */
+
+const invitationCard = document.getElementById("invitationCard");
+const canHover = window.matchMedia("(pointer: fine)").matches;
+
+if (invitationCard && canHover && !reduceMotion) {
+    invitationCard.addEventListener("mousemove", function (e) {
+        const rect = invitationCard.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width - 0.5;
+        const py = (e.clientY - rect.top) / rect.height - 0.5;
+
+        invitationCard.style.transform =
+            "rotateY(" + (px * 6) + "deg) rotateX(" + (py * -6) + "deg)";
+    });
+
+    invitationCard.addEventListener("mouseleave", function () {
+        invitationCard.style.transform = "rotateY(0deg) rotateX(0deg)";
+    });
+}
 
 </script>
 
