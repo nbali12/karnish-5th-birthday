@@ -336,6 +336,73 @@ img {
 }
 
 /* =========================================================
+   THUNDER (Thor) BOLTS
+   Animated bolts travel top->bottom behind the card
+========================================================= */
+.thunder-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 30; /* in front of card */
+    pointer-events: none;
+    overflow: visible;
+}
+
+.thunder-bolt {
+    position: absolute;
+    top: -20%;
+    width: 6px;
+    height: 180%;
+    background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,250,210,.98) 25%, rgba(255,220,110,.85) 60%, rgba(255,200,80,0) 100%);
+    filter: drop-shadow(0 0 28px rgba(255,250,210,.95));
+    opacity: 0.92;
+    transform-origin: top center;
+    border-radius: 2px;
+}
+
+.thunder-bolt::after {
+    content: "";
+    position: absolute;
+    left: -8px;
+    top: 0;
+    width: 22px;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,.85), rgba(255,230,140,.28));
+    filter: blur(8px);
+    opacity: .9;
+}
+
+.thunder-flash {
+    position: absolute;
+    inset: 0;
+    z-index: 40; /* above bolts */
+    pointer-events: none;
+    /* smaller, warmer flash so it doesn't wash the page white */
+    background: radial-gradient(circle at 50% 18%, rgba(255,255,255,0.9) 0%, rgba(255,245,200,0.45) 12%, rgba(255,220,140,0.12) 28%, transparent 100%);
+    opacity: 0;
+    transition: opacity .18s ease-out;
+}
+
+@keyframes boltFall {
+    0% {
+        transform: translateY(-120%) rotate(var(--rot, 0deg));
+        opacity: 0;
+    }
+    8% { opacity: 1; }
+    70% {
+        transform: translateY(80%) rotate(calc(var(--rot, 0deg) + 3deg));
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(120%) rotate(calc(var(--rot, 0deg) + 6deg));
+        opacity: 0;
+    }
+}
+
+.thunder-bolt.animate {
+    animation: boltFall var(--dur, 1.4s) cubic-bezier(.2,.1,.15,1) forwards;
+}
+
+/* =========================================================
    COMIC WORDS
 ========================================================= */
 
@@ -637,6 +704,8 @@ img {
 
     <div class="card-wrapper">
 
+        <div class="thunder-layer" aria-hidden="true"></div>
+
         <!-- top row of heroes -->
         <div class="hero-row top">
             <img src="images/captain-america.png" class="character captain" alt="Captain America">
@@ -788,6 +857,88 @@ setInterval(updateCountdown, 1000);
 
 const reduceMotion =
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// =========================================================
+// THUNDER BOLT SPAWNER
+// Creates brief bolts that travel top->bottom behind the card
+// =========================================================
+if (!reduceMotion) {
+    (function scheduleBolt() {
+        const minDelay = 600;   // quicker minimum
+        const maxDelay = 7000;  // allow longer gaps
+        const delay = Math.floor(minDelay + Math.random() * (maxDelay - minDelay));
+
+        setTimeout(function () {
+            // randomly decide whether to spawn a bolt this cycle
+            if (Math.random() > 0.25) spawnBolt();
+            scheduleBolt();
+        }, delay);
+    })();
+}
+
+function spawnBolt() {
+    const layer = document.querySelector('.thunder-layer');
+    if (!layer) return;
+
+    const bolt = document.createElement('div');
+    bolt.className = 'thunder-bolt';
+
+    // random horizontal position within the wrapper
+    const left = 6 + Math.random() * 88; // keep inside padding
+    bolt.style.left = left + '%';
+
+    // random slight rotation and duration (shorter, snappier)
+    const rot = (Math.random() * 30 - 15) + 'deg';
+    const dur = (0.5 + Math.random() * 0.7).toFixed(2) + 's';
+    bolt.style.setProperty('--rot', rot);
+    bolt.style.setProperty('--dur', dur);
+
+    // create a brief flash overlay so lighting is visible, sized to cover the card
+    const flash = document.createElement('div');
+    flash.className = 'thunder-flash';
+    const flashAlpha = (0.18 + Math.random() * 0.42).toFixed(2); // 0.18 - 0.6
+    const flashDur = Math.floor(60 + Math.random() * 220); // 60-280ms
+
+    // size flash to match the card area so the whole card lights up
+    const card = document.getElementById('invitationCard');
+    if (card) {
+        const layerRect = layer.getBoundingClientRect();
+        const cardRect = card.getBoundingClientRect();
+        const leftPx = Math.max(0, cardRect.left - layerRect.left);
+        const topPx = Math.max(0, cardRect.top - layerRect.top);
+        flash.style.left = leftPx + 'px';
+        flash.style.top = topPx + 'px';
+        flash.style.width = cardRect.width + 'px';
+        flash.style.height = cardRect.height + 'px';
+        // copy card border-radius for nicer flash edges
+        flash.style.borderRadius = window.getComputedStyle(card).borderRadius || '20px';
+    } else {
+        // fallback: full layer
+        flash.style.left = '0';
+        flash.style.top = '0';
+        flash.style.width = '100%';
+        flash.style.height = '100%';
+    }
+
+    layer.appendChild(flash);
+    layer.appendChild(bolt);
+
+    // trigger animation for bolt and flash
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+        bolt.classList.add('animate');
+        // make flash visible briefly over the card
+        flash.style.opacity = flashAlpha;
+        setTimeout(() => {
+            flash.style.opacity = '0';
+        }, flashDur);
+    }));
+
+    // cleanup after animation completes
+    setTimeout(() => {
+        bolt.remove();
+        flash.remove();
+    }, parseFloat(dur) * 1000 + 350);
+}
 
 
 /* =========================================================
