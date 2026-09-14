@@ -751,7 +751,7 @@ img {
             <!-- DATE -->
             <div class="event-date">OCTOBER 10, 2026</div>
             <div class="event-day">SATURDAY</div>
-            <div class="event-time">at 1:00 PM</div>
+            <div class="event-time">at 1:00 PM ET</div>
 
             <!-- COUNTDOWN -->
             <div class="countdown">
@@ -824,7 +824,9 @@ document.addEventListener("DOMContentLoaded", function () {
    COUNTDOWN
 ========================================================= */
 
-const birthdayDate = new Date("October 10, 2026 13:00:00").getTime();
+// Target: Oct 10, 2026 13:00 Eastern Time (ET). Use explicit ISO with -04:00 offset
+// Note: October 10, 2026 falls during daylight time (EDT, UTC-4).
+const birthdayDate = new Date("2026-10-10T13:00:00-04:00").getTime();
 
 function updateCountdown() {
     const now = new Date().getTime();
